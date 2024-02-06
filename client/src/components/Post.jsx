@@ -3,12 +3,15 @@ const Post = () => {
     <div className="post">
       <div className="image">
         <img
-          src="https://cdn.animenewsnetwork.com/thumbnails/max600x600/cms/feature/154665/fgo1.jpg"
+          src="https://hololive.hololivepro.com/wp-content/uploads/2024/01/000top.jpg"
           alt="game characters promotional art"
         />
       </div>
       <div className="texts">
-        <h2>Who Writes Fate/Grand Order? </h2>
+        <h2>
+          “Gurarium in Sendai Umino-Mori Aquarium” Collaboration with hololive
+          English VTuber Gawr Gura Until February 29th!{" "}
+        </h2>
         <p className="info">
           <a href="" className="author">
             Gawr Gura
