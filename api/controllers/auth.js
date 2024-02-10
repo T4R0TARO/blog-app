@@ -1,7 +1,7 @@
 const UserModel = require("../models/User");
 // TODO: Custom Error Handlers
 // TODO: Duplicates, Missing Username, Missing Password
-// TODO: JWT
+// TODO: jwt, bcryptjs
 const register = async (req, res) => {
   try {
     const user = await UserModel.create({ ...req.body });
@@ -12,6 +12,7 @@ const register = async (req, res) => {
 };
 
 const login = (req, res) => {
+  const { username, password } = req.body;
   return res.status(200).send("login testing...");
 };
 

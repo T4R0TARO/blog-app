@@ -11,7 +11,7 @@ const RegisterPage = () => {
       headers: { "Content-Type": "application/json" },
     });
   }
-  console.log(username, password);
+
   return (
     <form className="register" onSubmit={register}>
       <h1>Register</h1>
