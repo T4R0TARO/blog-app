@@ -1,20 +1,17 @@
 require("dotenv").config();
-const express = require("express");
 const cors = require("cors");
-const connectDB = require("./db/connect");
+const express = require("express");
 const app = express();
+const connectDB = require("./db/connect");
+const authRouter = require("./routes/auth.js");
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  return res.status(200).send("Wah Wah Wah");
-});
+app.use("/api/v1/auth", authRouter);
 
-// TODO: Move to /controller in separate module
-app.post("/register", (req, res) => {
-  const { username, password } = req.body;
-  res.json({ requestData: { username, password } });
+app.get("/", (req, res) => {
+  return res.status(200).send("Wah Wah Wah Testing...");
 });
 
 const port = process.env.PORT || 3000;
@@ -22,7 +19,9 @@ const port = process.env.PORT || 3000;
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
-    app.listen(port, () => console.log(`Server is listening on port ${port}`));
+    app.listen(port, () =>
+      console.log(`Server is listening on port ${port}...`)
+    );
   } catch (error) {
     console.log(error);
   }
