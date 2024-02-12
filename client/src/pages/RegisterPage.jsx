@@ -5,13 +5,18 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   async function register(event) {
     event.preventDefault();
-    await fetch("http://localhost:3000/api/v1/auth/register", {
+    const response = await fetch("http://localhost:3000/api/v1/auth/register", {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: { "Content-Type": "application/json" },
     });
+    // TODO: Temp error message...
+    if (response.status === 200) {
+      alert("registration success 🚀");
+    } else {
+      alert("registration failed...😔");
+    }
   }
-
   return (
     <form className="register" onSubmit={register}>
       <h1>Register</h1>
