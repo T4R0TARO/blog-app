@@ -5,15 +5,17 @@ const UnauthenticatedError = require("../errors/unauthenticated");
 const register = async (req, res) => {
   try {
     const user = await UserModel.create({ ...req.body });
-    return res.status(200).json({ user: { name: user.username } });
+    const token = user.createJWT();
+    return res.status(200).json({ user: { username: user.username }, token });
   } catch (error) {
     return res.status(400).json({ error });
   }
 };
 
-const login = (req, res) => {
+const login = async (req, res) => {
   const { username, password } = req.body;
-  return res.status(200).send("login testing...");
+  const user = await UserModel.findOne({ username });
+  return res.status(200).json({ user: { username: user.username } });
 };
 
 module.exports = {
