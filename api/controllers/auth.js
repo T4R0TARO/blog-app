@@ -22,7 +22,9 @@ const login = async (req, res) => {
   }
   const token = user.createJWT();
   // return res.status(200).json({ user: { username: user.username }, token });
-  return res.cookie("token", token).json("ok");
+  return res
+    .cookie("token", token, { sameSite: "None", secure: true })
+    .json("ok");
 };
 
 module.exports = {
