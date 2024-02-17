@@ -8,9 +8,9 @@ const LoginPage = () => {
     event.preventDefault();
     const response = await fetch("http://localhost:3000/api/v1/auth/login", {
       method: "POST",
+      credentials: "include",
       body: JSON.stringify({ username, password }),
       headers: { "Content-Type": "application/json" },
-      // credentials: "include",
       mode: "cors",
     });
     if (response.ok) {
