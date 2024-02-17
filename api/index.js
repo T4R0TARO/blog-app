@@ -9,7 +9,10 @@ const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
 const app = express();
+
 app.use(cors());
+// ! DO I NEED THIS FOR PROPER CREDENTIALS AND JWT USE?
+// app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 
 app.use("/api/v1/auth", authRouter);
