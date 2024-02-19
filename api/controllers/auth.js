@@ -27,7 +27,12 @@ const login = async (req, res) => {
     .json("ok");
 };
 
+const profile = async (req, res) => {
+  res.status(200).json(req.cookies);
+};
+
 module.exports = {
   register,
   login,
+  profile,
 };
