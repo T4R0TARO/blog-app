@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const { setUserInfo } = useContext(UserContext);
   async function login(event) {
     event.preventDefault();
     const response = await fetch("http://localhost:3000/api/v1/auth/login", {
@@ -14,7 +16,10 @@ const LoginPage = () => {
       mode: "cors",
     });
     if (response.ok) {
-      setRedirect(true);
+      response.json().then((userInfo) => {
+        setUserInfo(userInfo);
+        setRedirect(true);
+      });
     } else {
       alert("wrong credentials...");
     }

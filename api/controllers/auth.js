@@ -23,9 +23,10 @@ const login = async (req, res) => {
   }
   const token = user.createJWT();
 
-  return res
-    .cookie("token", token, { sameSite: "None", secure: true })
-    .json("ok");
+  return res.cookie("token", token, { sameSite: "None", secure: true }).json({
+    id: user._id,
+    username,
+  });
 };
 
 const profile = async (req, res) => {

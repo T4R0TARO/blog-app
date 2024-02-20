@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
+import { UserContext } from "../UserContext";
 
 const Header = () => {
-  const [username, setUsername] = useState(null);
+  // const [username, setUsername] = useState(null);
+  const { setUserInfo, userInfo } = useContext(UserContext);
   useEffect(() => {
     fetch("http://localhost:3000/api/v1/auth/profile", {
       credentials: "include",
     }).then((response) => {
       response.json().then((userInfo) => {
-        setUsername(userInfo.username);
+        // setUsername(userInfo.username);
+        setUserInfo(userInfo);
       });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function logout() {
@@ -19,8 +23,11 @@ const Header = () => {
       credentials: "include",
       method: "POST",
     });
-    setUsername(null);
+    // setUsername(null);
+    setUserInfo(null);
   }
+
+  const username = userInfo?.username;
   return (
     <header>
       <Link to="/" className="logo">
