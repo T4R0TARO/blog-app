@@ -36,8 +36,13 @@ const profile = async (req, res) => {
   });
 };
 
+const logout = async (req, res) => {
+  res.cookie("token", "", { sameSite: "None", secure: true }).json("ok");
+};
+
 module.exports = {
   register,
   login,
   profile,
+  logout,
 };
