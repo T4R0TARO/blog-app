@@ -23,10 +23,16 @@ const login = async (req, res) => {
   }
   const token = user.createJWT();
 
-  return res.cookie("token", token, { sameSite: "None", secure: true }).json({
-    id: user._id,
-    username,
-  });
+  return res
+    .cookie("token", token, {
+      sameSite: "None",
+      secure: true,
+      // Partitioned,
+    })
+    .json({
+      id: user._id,
+      username,
+    });
 };
 
 const profile = async (req, res) => {
@@ -38,7 +44,13 @@ const profile = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  res.cookie("token", "", { sameSite: "None", secure: true }).json("ok");
+  res
+    .cookie("token", "", {
+      sameSite: "None",
+      secure: true,
+      // Partitioned,
+    })
+    .json("ok");
 };
 
 module.exports = {
