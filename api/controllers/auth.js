@@ -1,6 +1,8 @@
 const UserModel = require("../models/User");
+const Post = require("../models/Post");
 const { BadRequestError, UnauthenticatedError } = require("../errors");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 const register = async (req, res) => {
   const user = await UserModel.create({ ...req.body });
@@ -27,7 +29,6 @@ const login = async (req, res) => {
     .cookie("token", token, {
       sameSite: "None",
       secure: true,
-      // Partitioned,
     })
     .json({
       id: user._id,
@@ -48,9 +49,26 @@ const logout = async (req, res) => {
     .cookie("token", "", {
       sameSite: "None",
       secure: true,
-      // Partitioned,
     })
     .json("ok");
+};
+
+const createPost = async (req, res) => {
+  const { originalname, path } = req.file;
+  const parts = originalname.split(".");
+  const ext = parts[parts.length - 1];
+  const newPath = path + "." + ext;
+  fs.renameSync(path, newPath);
+
+  const { title, summary, content } = req.body;
+  const postDoc = await Post.create({
+    title,
+    summary,
+    content,
+    cover: newPath,
+  });
+  // res.json({ files: req.file });
+  res.json(postDoc);
 };
 
 module.exports = {
@@ -58,4 +76,5 @@ module.exports = {
   login,
   profile,
   logout,
+  createPost,
 };
