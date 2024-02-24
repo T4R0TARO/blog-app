@@ -71,10 +71,16 @@ const createPost = async (req, res) => {
   res.json(postDoc);
 };
 
+const getAllPost = async (req, res) => {
+  const posts = await Post.find();
+  res.send({ posts });
+};
+
 module.exports = {
   register,
   login,
   profile,
   logout,
   createPost,
+  getAllPost,
 };
