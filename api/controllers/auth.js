@@ -17,40 +17,27 @@ const login = async (req, res) => {
   }
   const user = await UserModel.findOne({ username });
   if (!user) {
-    throw new UnauthenticatedError("Invalid Credentials");
+    throw new UnauthenticatedError("Invalid Username...");
   }
   const isPasswordCorrect = await user.comparePassword(password);
   if (!isPasswordCorrect) {
-    throw new UnauthenticatedError("Invalid Credentials");
+    throw new UnauthenticatedError("Invalid Password...");
   }
-  // const token = user.createJWT();
-
-  // return res
-  //   .cookie("token", token, {
-  //     sameSite: "None",
-  //     secure: true,
-  //   })
-  //   .json({
-  //     id: user._id,
-  //     username,
-  //   });
-
-  if (isPasswordCorrect) {
-    jwt.sign(
-      { username, id: user._id },
-      process.env.JWT_SECRET,
-      {},
-      (err, token) => {
-        if (err) throw err;
-        res.cookie("token", token).json({
-          id: user._id,
-          username,
-        });
-      }
-    );
-  } else {
-    res.status(400).json("wrong credentials");
+  /** Error when implementing `createJWT()`
+   * ! 'author' property  in response breaks
+   */
+  const token = await jwt.sign(
+    { username, id: user._id },
+    process.env.JWT_SECRET,
+    {}
+  );
+  if (!token) {
+    throw new Error("JWT sigining failed...");
   }
+  res.cookie("token", token, { sameSite: "None", secure: true }).json({
+    id: user.id,
+    username,
+  });
 };
 
 const profile = async (req, res) => {
