@@ -23,17 +23,34 @@ const login = async (req, res) => {
   if (!isPasswordCorrect) {
     throw new UnauthenticatedError("Invalid Credentials");
   }
-  const token = user.createJWT();
+  // const token = user.createJWT();
 
-  return res
-    .cookie("token", token, {
-      sameSite: "None",
-      secure: true,
-    })
-    .json({
-      id: user._id,
-      username,
-    });
+  // return res
+  //   .cookie("token", token, {
+  //     sameSite: "None",
+  //     secure: true,
+  //   })
+  //   .json({
+  //     id: user._id,
+  //     username,
+  //   });
+
+  if (isPasswordCorrect) {
+    jwt.sign(
+      { username, id: user._id },
+      process.env.JWT_SECRET,
+      {},
+      (err, token) => {
+        if (err) throw err;
+        res.cookie("token", token).json({
+          id: user._id,
+          username,
+        });
+      }
+    );
+  } else {
+    res.status(400).json("wrong credentials");
+  }
 };
 
 const profile = async (req, res) => {
@@ -54,26 +71,35 @@ const logout = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
+  // Reformat upload/image file name
   const { originalname, path } = req.file;
   const parts = originalname.split(".");
   const ext = parts[parts.length - 1];
   const newPath = path + "." + ext;
   fs.renameSync(path, newPath);
 
-  const { title, summary, content } = req.body;
-  const postDoc = await Post.create({
-    title,
-    summary,
-    content,
-    cover: newPath,
+  const { token } = req.cookies;
+  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, info) => {
+    if (err) throw err;
+    const { title, summary, content } = req.body;
+    const postDoc = await Post.create({
+      title,
+      summary,
+      content,
+      cover: newPath,
+      author: info.id,
+    });
+    res.json(postDoc);
   });
-  // res.json({ files: req.file });
-  res.json(postDoc);
 };
 
 const getAllPost = async (req, res) => {
-  const posts = await Post.find();
-  res.send({ posts });
+  res.json(
+    await Post.find()
+      .populate("author", ["username"])
+      .sort({ createdAt: -1 })
+      .limit(20)
+  );
 };
 
 module.exports = {

@@ -1,29 +1,20 @@
-const Post = () => {
+import { format } from "date-fns";
+
+const Post = ({ title, summary, cover, createdAt, author }) => {
   return (
     <div className="post">
       <div className="image">
-        <img
-          src="https://hololive.hololivepro.com/wp-content/uploads/2024/01/000top.jpg"
-          alt="game characters promotional art"
-        />
+        <img src={"http://localhost:3000/" + cover} alt="" />
       </div>
       <div className="texts">
-        <h2>
-          “Gurarium in Sendai Umino-Mori Aquarium” Collaboration with hololive
-          English VTuber Gawr Gura Until February 29th!{" "}
-        </h2>
+        <h2>{title}</h2>
         <p className="info">
           <a href="" className="author">
-            Gawr Gura
+            {author.username}
           </a>
-          <time>2024-01-06 4:50pm</time>
+          <time>{format(new Date(createdAt), "MMM d, yyyy HH:mm")}</time>
         </p>
-        <p className="summary">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
-          consequatur. Distinctio necessitatibus debitis cumque accusantium,
-          officiis illum accusamus iste, ut atque architecto cupiditate enim. At
-          commodi odit consequuntur dolorem ab. Qui, temporibus magni!
-        </p>
+        <p className="summary">{summary}</p>
       </div>
     </div>
   );
