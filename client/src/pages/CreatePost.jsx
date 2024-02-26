@@ -37,7 +37,7 @@ const CreatePost = () => {
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [files, setFiles] = useState("");
-  const [redirect, setRedirect] = useState("");
+  const [redirect, setRedirect] = useState(false);
   async function createNewPost(e) {
     const data = new FormData();
     data.set("title", title);
@@ -48,6 +48,7 @@ const CreatePost = () => {
     const response = await fetch("http://localhost:3000/api/v1/auth/post", {
       method: "POST",
       body: data,
+      credentials: "include",
     });
     if (response.ok) {
       setRedirect(true);
