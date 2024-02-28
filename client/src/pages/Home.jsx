@@ -7,7 +7,6 @@ const Home = () => {
     fetch("http://localhost:3000/api/v1/auth/post").then((response) => {
       response.json().then((posts) => {
         setPosts(posts);
-        // console.log(posts);
       });
     });
   }, []);

@@ -58,7 +58,7 @@ const logout = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  // Reformat upload/image file name
+  // Reformat upload/image file name to include extention
   const { originalname, path } = req.file;
   const parts = originalname.split(".");
   const ext = parts[parts.length - 1];

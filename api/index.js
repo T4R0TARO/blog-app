@@ -14,9 +14,10 @@ const app = express();
 // app.use(cors());
 // ! DOES NOT WORK
 // app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-app.use(cors({ origin: "http://127.0.0.1:5173", credentials: true })); // |'w')b
+app.use(cors({ origin: "http://127.0.0.1:5173", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
+//used to serve user-uploaded files, in this case image files.
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
 app.use("/api/v1/auth", authRouter);
