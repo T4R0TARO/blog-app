@@ -10,6 +10,7 @@ const {
   logout,
   createPost,
   getAllPost,
+  getSinglePost,
 } = require("../controllers/auth.js");
 
 router.post("/register", register);
@@ -18,5 +19,6 @@ router.get("/profile", profile);
 router.post("/logout", logout);
 router.post("/post", uploadMiddleware.single("file"), createPost);
 router.get("/post", getAllPost);
+router.get("/post/:id", getSinglePost);
 
 module.exports = router;
