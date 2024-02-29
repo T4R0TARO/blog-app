@@ -89,6 +89,12 @@ const getAllPost = async (req, res) => {
   );
 };
 
+const getSinglePost = async (req, res) => {
+  const { id } = req.params;
+  const postDoc = await Post.findById(id).populate("author", ["username"]);
+  res.json(postDoc);
+};
+
 module.exports = {
   register,
   login,
@@ -96,4 +102,5 @@ module.exports = {
   logout,
   createPost,
   getAllPost,
+  getSinglePost,
 };
