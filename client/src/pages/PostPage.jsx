@@ -12,10 +12,15 @@ const PostPage = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(postInfo);
+  if (!postInfo) return "";
   return (
-    <div>
-      <h1>post page here...</h1>
+    <div className="post-page">
+      <h1>{postInfo.title}</h1>
+      <div className="image">
+        <img src={`http://localhost:3000/${postInfo.cover}`} alt="" />
+      </div>
+      <div dangerouslySetInnerHTML={{ __html: postInfo.content }} />
+      {/* {postInfo.content} */}
     </div>
   );
 };
