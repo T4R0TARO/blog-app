@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { UserContext } from "../UserContext";
 
@@ -23,7 +23,7 @@ const PostPage = () => {
       <div className="author">by @{postInfo.author.username}</div>
       {userInfo.id === postInfo.author._id && (
         <div className="edit-row">
-          <a className="edit-btn" href="#">
+          <Link className="edit-btn" to={`/edit/${postInfo._id}`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -39,7 +39,7 @@ const PostPage = () => {
               />
             </svg>
             Edit this post
-          </a>
+          </Link>
         </div>
       )}
       <div className="image">
