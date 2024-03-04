@@ -80,6 +80,10 @@ const createPost = async (req, res) => {
   });
 };
 
+const editPost = async (req, res) => {
+  res.json(req.file);
+};
+
 const getAllPost = async (req, res) => {
   res.json(
     await Post.find()
@@ -101,6 +105,7 @@ module.exports = {
   profile,
   logout,
   createPost,
+  editPost,
   getAllPost,
   getSinglePost,
 };
