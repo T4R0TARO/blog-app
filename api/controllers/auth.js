@@ -81,7 +81,33 @@ const createPost = async (req, res) => {
 };
 
 const editPost = async (req, res) => {
-  res.json(req.file);
+  let newPath = null;
+  if (req.file) {
+    // Reformat upload/image file name to include extention
+    const { originalname, path } = req.file;
+    const parts = originalname.split(".");
+    const ext = parts[parts.length - 1];
+    newPath = path + "." + ext;
+    fs.renameSync(path, newPath);
+  }
+
+  const { token } = req.cookies;
+  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, info) => {
+    if (err) throw err;
+    const { id, title, summary, content } = req.body;
+    const postDoc = await Post.findById(id);
+    const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
+    if (!isAuthor) {
+      return res.status(400).json("invalid author...");
+    }
+    await postDoc.updateOne({
+      title,
+      summary,
+      content,
+      cover: newPath ? newPath : postDoc.cover,
+    });
+    res.json(postDoc);
+  });
 };
 
 const getAllPost = async (req, res) => {

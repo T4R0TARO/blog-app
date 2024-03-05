@@ -28,16 +28,17 @@ const EditPost = () => {
     data.set("title", title);
     data.set("summary", summary);
     data.set("content", content);
+    data.set("id", id);
     if (files?.[0]) {
       data.set("file", files?.[0]);
     }
     const response = await fetch("http://localhost:3000/api/v1/auth/post", {
       method: "PUT",
       body: data,
-      credentials: "inlcude",
+      credentials: "include",
     });
     if (response.ok) {
-      // setRedirect(true);
+      setRedirect(true);
     }
   }
 
