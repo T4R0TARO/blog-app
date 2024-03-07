@@ -2,7 +2,7 @@ const UserModel = require("../models/User");
 const Post = require("../models/Post");
 const { BadRequestError, UnauthenticatedError } = require("../errors");
 const jwt = require("jsonwebtoken");
-const fs = require("fs");
+const reformatFileName = require("../utils/helperFunctions");
 
 const register = async (req, res) => {
   const user = await UserModel.create({ ...req.body });
@@ -58,13 +58,7 @@ const logout = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  // Reformat upload/image file name to include extention
-  const { originalname, path } = req.file;
-  const parts = originalname.split(".");
-  const ext = parts[parts.length - 1];
-  const newPath = path + "." + ext;
-  fs.renameSync(path, newPath);
-
+  const newPath = reformatFileName(req.file);
   const { token } = req.cookies;
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, info) => {
     if (err) throw err;
@@ -83,14 +77,8 @@ const createPost = async (req, res) => {
 const editPost = async (req, res) => {
   let newPath = null;
   if (req.file) {
-    // Reformat upload/image file name to include extention
-    const { originalname, path } = req.file;
-    const parts = originalname.split(".");
-    const ext = parts[parts.length - 1];
-    newPath = path + "." + ext;
-    fs.renameSync(path, newPath);
+    newPath = reformatFileName(req.file);
   }
-
   const { token } = req.cookies;
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, info) => {
     if (err) throw err;
@@ -100,15 +88,18 @@ const editPost = async (req, res) => {
     if (!isAuthor) {
       return res.status(400).json("invalid author...");
     }
+    const updatedCover = newPath ? newPath : postDoc.cover;
     await postDoc.updateOne({
       title,
       summary,
       content,
-      cover: newPath ? newPath : postDoc.cover,
+      cover: updatedCover,
     });
     res.json(postDoc);
   });
 };
+
+// TODO: deletePost controller...
 
 const getAllPost = async (req, res) => {
   res.json(
