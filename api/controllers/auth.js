@@ -100,6 +100,9 @@ const editPost = async (req, res) => {
 };
 
 // TODO: deletePost controller...
+const deletePost = async (req, res) => {
+  res.send("delete post...");
+};
 
 const getAllPost = async (req, res) => {
   res.json(
@@ -123,6 +126,7 @@ module.exports = {
   logout,
   createPost,
   editPost,
+  deletePost,
   getAllPost,
   getSinglePost,
 };
