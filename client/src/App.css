@@ -39,7 +39,6 @@ header {
   align-items: center;
   margin-bottom: 50px;
   margin-top: 20px;
-  /* border: 1px solid blue; */
 }
 
 header a {
@@ -56,6 +55,13 @@ header nav {
   display: flex;
   gap: 15px;
   /* border: 1px solid red; */
+}
+
+@media screen and (max-width: 500px) {
+  header {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 div.post {
@@ -205,4 +211,53 @@ div.post-page a.delete-btn {
 
 a svg {
   height: 20px;
+}
+
+/* Delete Button Styles */
+div.confirm-delete-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  border: 3px solid #ccc;
+  border-radius: 15px;
+  text-align: center;
+}
+
+div.delete-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+div.delete-page-container h1 {
+  padding-bottom: 1rem;
+}
+
+div.confirm-delete-container h3 {
+  font-size: 2rem;
+  padding-bottom: 1rem;
+}
+
+.confirm-delete-btn {
+  background: #a52a2a;
+  font-size: 1.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 15px;
+}
+
+@media screen and (max-width: 500px) {
+  div.confirm-delete-container h3 {
+    font-size: 1rem;
+  }
+  .confirm-delete-btn {
+    font-size: 12px;
+  }
+}
+
+.confirm-delete-btn:hover {
+  background: red;
 }
