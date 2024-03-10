@@ -23,6 +23,6 @@ router.post("/post", uploadMiddleware.single("file"), createPost);
 router.get("/post", getAllPost);
 router.get("/post/:id", getSinglePost);
 router.put("/post", uploadMiddleware.single("file"), editPost);
-router.get("/delete/id", deletePost);
+router.delete("/delete/:id", deletePost);
 
 module.exports = router;
