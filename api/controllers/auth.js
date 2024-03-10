@@ -1,6 +1,10 @@
 const UserModel = require("../models/User");
 const Post = require("../models/Post");
-const { BadRequestError, UnauthenticatedError } = require("../errors");
+const {
+  BadRequestError,
+  UnauthenticatedError,
+  NotFoundError,
+} = require("../errors");
 const jwt = require("jsonwebtoken");
 const reformatFileName = require("../utils/helperFunctions");
 
@@ -101,7 +105,12 @@ const editPost = async (req, res) => {
 
 // TODO: deletePost controller...
 const deletePost = async (req, res) => {
-  res.send("delete post...");
+  const { id } = req.params;
+  const result = await Post.findByIdAndDelete(id);
+  if (!result) {
+    throw new NotFoundError(`No post with id ${id}...`);
+  }
+  return res.status(200).send({ message: "Post deleted successfully..." });
 };
 
 const getAllPost = async (req, res) => {

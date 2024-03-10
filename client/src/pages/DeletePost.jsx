@@ -1,11 +1,34 @@
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
+import { useState } from "react";
 
 const DeletePost = () => {
   const { id } = useParams();
+  const [redirect, setRedirect] = useState(false);
 
-  const handleDeletePost = () => {
-    return console.log("delete post...");
+  const handleDeletePost = async (ev) => {
+    ev.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/auth/delete/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        setRedirect(true);
+      }
+    } catch (error) {
+      console.log("Error delete post:", error.message);
+    }
   };
+
+  if (redirect) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <div className="delete-page-container">
       <h1>Delete Post</h1>
