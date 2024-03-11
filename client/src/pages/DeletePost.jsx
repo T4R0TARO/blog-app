@@ -32,7 +32,6 @@ const DeletePost = () => {
   return (
     <div className="delete-page-container">
       <h1>Delete Post</h1>
-      {id}
       <div className="confirm-delete-container">
         <h3>Are you sure you want to delete this post?</h3>
         <button className="confirm-delete-btn" onClick={handleDeletePost}>
