@@ -1,6 +1,6 @@
-# book-store-mern
+# blog-app-mern
 
-Under Development...
+blog-app is a fullstack CRUD application that provides a way to interact with the API, allowing users to manage and manipulate data through a user-friendly interface. The user can register and login with their own custom username and edit and delete post they have created, while also viewing post created by other users.
 
 ## Installation
 
@@ -23,6 +23,7 @@ npm install
 - MONGODB
 - CSS
 - RAILWAY
+- JWT
 
 ## Author
 
