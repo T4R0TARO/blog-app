@@ -103,7 +103,6 @@ const editPost = async (req, res) => {
   });
 };
 
-// TODO: deletePost controller...
 const deletePost = async (req, res) => {
   const { id } = req.params;
   const result = await Post.findByIdAndDelete(id);
