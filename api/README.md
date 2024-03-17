@@ -2,7 +2,63 @@
 
 under development
 
-## Controllers
+### Controllers
+
+### /Utils
+
+`reformatFileName`
+When requesting the file name `req.file` the format for the string is now readable for the as an image so we need to reformat the file name to include the ext like '.jpg, .png, etc.'. This function can be used whenever we need to reformat a string that needs to br reformated.
+
+```js
+// api/utils/helperFunction.js
+
+/**
+ * Helper Function: reformatFileName
+ *
+ * Description: This helper function is used to reformat the filename of an uploaded * file by appending its file extension to its path and renaming the file accordingly.
+ *
+ * Parameters:
+ * - file: Object- Information about uploaded file.
+ *  Properties:
+ *      - originalname: String - The original name of the uploaded file
+ *      - path: String - The path where the uploaded file is stroed temporarily.
+ *
+ *  Return Value:
+ *      - String: The new path of the file after reformating.
+ *  Dependencies:
+ *  - fs: The 'fs' module is used to perform file system opertaions, such as renaming *        files
+ *
+ * Example Usage: const reformatFileName: require("./reformatFileName");
+ * const uploadedFile = {
+ *  originalname: 'example.jpg',
+ *  path: '/uploads/tmp-12345.jpg'
+ * };
+ * const newPath = reformatFileName(uploadedFile);
+ * console.log(newPath); // 'uploads/tmp-12345.jpg'
+ */
+
+const fs = require("fs"); // Importing the 'fs' module for file system operations
+
+const reformatFileName = (file) => {
+  // Desctructuring properties from the 'file' object
+  const { originalname, path } = file;
+
+  // Extrating file extension
+  const parts = originalname.split(".");
+  const ext = parts[parts.length - 1];
+
+  // Generating the new path with the file extension appended
+  const newPath = path + "." + ext;
+
+  // Renaming the file with the new path
+  fs.renameSync(path, newPath);
+
+  // Returning the new path
+  return newPath;
+};
+
+module.exports = reformatFileName;
+```
 
 ### Multers/uploadMiddleware
 
