@@ -4,10 +4,53 @@ under development
 
 ### Controllers
 
+Schema: `PostSchema`
+Properties:
+
+- author: ObjectID - Reference to the author of the post (linked to the 'User' model).
+
+```js
+// api/models/Post.js
+
+const PostSchema = new Schema(
+  {
+    title: String,
+    summary: String,
+    content: String,
+    cover: String,
+    // get `ObjectId` and reference to 'User' model
+    author: { type: Schema.Types.ObjectId, ref: "User" },
+  },
+  {
+    timestamps: true,
+  }
+);
+```
+
+`getAllPost()`
+This function is responsible for retrieving all posts
+from the database, populating each post with author information,
+sorting them by creation date in descending order, and limiting the
+number of retrieved posts to 20.
+
+```js
+// api/controllers/auth.js
+
+const getAllPost = async (req, res) => {
+  res.json(
+    await Post.find()
+      // only populate w/ author value `username` and leave out sensitive data from the `User.Schema` object
+      .populate("author", ["username"])
+      .sort({ createdAt: -1 })
+      .limit(20)
+  );
+};
+```
+
 ### /Utils
 
 `reformatFileName`
-When requesting the file name `req.file` the format for the string is now readable for the as an image so we need to reformat the file name to include the ext like '.jpg, .png, etc.'. This function can be used whenever we need to reformat a string that needs to br reformated.
+When requesting the file name `req.file` the format for the string is not readable for as an image so we need to reformat the file name to include the ext like '.jpg, .png, etc.'. This function can be used whenever we need to reformat a string that needs to be reformated.
 
 ```js
 // api/utils/helperFunction.js
