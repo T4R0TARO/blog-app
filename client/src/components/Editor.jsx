@@ -1,6 +1,7 @@
 import ReactQuill from "react-quill";
 
 const Editor = ({ value, onChange }) => {
+  // React Quill Editor Settings
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
