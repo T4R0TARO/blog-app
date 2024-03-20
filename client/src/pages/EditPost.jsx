@@ -8,7 +8,6 @@ const EditPost = () => {
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [files, setFiles] = useState("");
-  // const [cover, setCover] = useState("")
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {

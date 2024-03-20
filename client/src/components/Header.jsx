@@ -3,14 +3,12 @@ import { useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
 
 const Header = () => {
-  // const [username, setUsername] = useState(null);
   const { setUserInfo, userInfo } = useContext(UserContext);
   useEffect(() => {
     fetch("http://localhost:3000/api/v1/auth/profile", {
       credentials: "include",
     }).then((response) => {
       response.json().then((userInfo) => {
-        // setUsername(userInfo.username);
         setUserInfo(userInfo);
       });
     });
@@ -23,7 +21,6 @@ const Header = () => {
       credentials: "include",
       method: "POST",
     });
-    // setUsername(null);
     setUserInfo(null);
   }
 
