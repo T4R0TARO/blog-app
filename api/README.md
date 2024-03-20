@@ -2,7 +2,7 @@
 
 under development
 
-### Controllers
+### Models
 
 Schema: `PostSchema`
 Properties:
@@ -27,6 +27,8 @@ const PostSchema = new Schema(
 );
 ```
 
+### Controllers
+
 `getAllPost()`
 This function is responsible for retrieving all posts
 from the database, populating each post with author information,
@@ -39,11 +41,23 @@ number of retrieved posts to 20.
 const getAllPost = async (req, res) => {
   res.json(
     await Post.find()
-      // only populate w/ author value `username` and leave out sensitive data from the `User.Schema` object
+      // only populate author value w/ `username` and leave out sensitive data from the `User.Schema` object
       .populate("author", ["username"])
       .sort({ createdAt: -1 })
       .limit(20)
   );
+};
+```
+
+`getSinglePost()`
+This function is responsible for retrieving a single post from the database by using the object params id and also inlcude the author value `username` from the `User.Schema` like we did previouslly in the `getAllPost()` function.
+
+```js
+const getSinglePost = async (req, res) => {
+  const { id } = req.params;
+  // only populate author value w/ `username` and leave out sensitive data from the `User.Schema` object
+  const postDoc = await Post.findById(id).populate("author", ["username"]);
+  res.json(postDoc);
 };
 ```
 
