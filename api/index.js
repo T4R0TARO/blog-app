@@ -11,10 +11,18 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-// app.use(cors());
 // ! DOES NOT WORK
 // app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-app.use(cors({ origin: "http://127.0.0.1:5173", credentials: true }));
+// TESTING
+// app.use(cors({ origin: "http://127.0.0.1:5173", credentials: true }));
+// DEPLOY
+app.use(
+  cors({
+    origin: "https://blog-app-production-82fa.up.railway.app/",
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 //used to serve user-uploaded files, in this case image files.
