@@ -10,7 +10,7 @@ const LoginPage = () => {
     event.preventDefault();
     // TEST URL: http://localhost:3000/api/v1/auth/login
     const response = await fetch(
-      "https://blog-app-client-production.up.railway.app/api/v1/auth/login",
+      "https://blog-app-production-82fa.up.railway.app/api/v1/auth/login",
       {
         method: "POST",
         credentials: "include",

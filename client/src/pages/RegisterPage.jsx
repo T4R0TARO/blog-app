@@ -7,7 +7,7 @@ const RegisterPage = () => {
     event.preventDefault();
     // TEST URL: http://localhost:3000/api/v1/auth/register
     const response = await fetch(
-      "https://blog-app-client-production.up.railway.app/api/v1/auth/register",
+      "https://blog-app-production-82fa.up.railway.app/api/v1/auth/register",
       {
         method: "POST",
         body: JSON.stringify({ username, password }),
