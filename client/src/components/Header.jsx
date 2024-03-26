@@ -7,7 +7,7 @@ const Header = () => {
   useEffect(() => {
     // TEST URL: http://localhost:3000/api/v1/auth/profile
     fetch(
-      "https://blog-app-client-production.up.railway.app/api/v1/auth/profile",
+      "https://blog-app-production-82fa.up.railway.app/api/v1/auth/profile",
       {
         credentials: "include",
       }
