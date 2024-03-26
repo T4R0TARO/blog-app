@@ -18,7 +18,7 @@ const app = express();
 // DEPLOY
 app.use(
   cors({
-    origin: "https://blog-app-production-82fa.up.railway.app/",
+    origin: "https://blog-app-production-82fa.up.railway.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
