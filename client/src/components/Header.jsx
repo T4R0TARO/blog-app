@@ -23,7 +23,7 @@ const Header = () => {
     console.log("logout");
     // TEST URL: http://localhost:3000/api/v1/auth/logout
     fetch(
-      "https://blog-app-client-production.up.railway.app/api/v1/auth/logout",
+      "https://blog-app-production-82fa.up.railway.app/api/v1/auth/logout",
       {
         credentials: "include",
         method: "POST",

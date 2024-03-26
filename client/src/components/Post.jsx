@@ -9,7 +9,7 @@ const Post = ({ _id, title, summary, cover, createdAt, author }) => {
         <Link to={`/post/${_id}`}>
           {/* <img src={"http://localhost:3000/" + cover} alt="" /> */}
           <img
-            src={"https://blog-app-client-production.up.railway.app/" + cover}
+            src={"https://blog-app-production-82fa.up.railway.app/" + cover}
             alt=""
           />
         </Link>
