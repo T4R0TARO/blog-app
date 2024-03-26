@@ -5,11 +5,15 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   async function register(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:3000/api/v1/auth/register", {
-      method: "POST",
-      body: JSON.stringify({ username, password }),
-      headers: { "Content-Type": "application/json" },
-    });
+    // TEST URL: http://localhost:3000/api/v1/auth/register
+    const response = await fetch(
+      "https://blog-app-client-production.up.railway.app/api/v1/auth/register",
+      {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     // TODO: Temp error message...
     if (response.status === 200) {
       alert("registration success 🚀");

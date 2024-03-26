@@ -8,13 +8,17 @@ const LoginPage = () => {
   const { setUserInfo } = useContext(UserContext);
   async function login(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:3000/api/v1/auth/login", {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify({ username, password }),
-      headers: { "Content-Type": "application/json" },
-      mode: "cors",
-    });
+    // TEST URL: http://localhost:3000/api/v1/auth/login
+    const response = await fetch(
+      "https://blog-app-client-production.up.railway.app/api/v1/auth/login",
+      {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({ username, password }),
+        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+      }
+    );
     if (response.ok) {
       response.json().then((userInfo) => {
         setUserInfo(userInfo);
