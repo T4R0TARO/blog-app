@@ -2,11 +2,16 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
 const Post = ({ _id, title, summary, cover, createdAt, author }) => {
+  // TODO: Update URL to Custom Domain name
   return (
     <div className="post">
       <div className="image">
         <Link to={`/post/${_id}`}>
-          <img src={"http://localhost:3000/" + cover} alt="" />
+          {/* <img src={"http://localhost:3000/" + cover} alt="" /> */}
+          <img
+            src={"https://blog-app-client-production.up.railway.app/" + cover}
+            alt=""
+          />
         </Link>
       </div>
       <div className="texts">

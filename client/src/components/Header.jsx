@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
-
+// TODO: Update URL to Custom Domain name
 const Header = () => {
   const { setUserInfo, userInfo } = useContext(UserContext);
   useEffect(() => {
-    fetch("http://localhost:3000/api/v1/auth/profile", {
-      credentials: "include",
-    }).then((response) => {
+    // TEST URL: http://localhost:3000/api/v1/auth/profile
+    fetch(
+      "https://blog-app-client-production.up.railway.app/api/v1/auth/profile",
+      {
+        credentials: "include",
+      }
+    ).then((response) => {
       response.json().then((userInfo) => {
         setUserInfo(userInfo);
       });
@@ -17,10 +21,14 @@ const Header = () => {
 
   function logout() {
     console.log("logout");
-    fetch("http://localhost:3000/api/v1/auth/logout", {
-      credentials: "include",
-      method: "POST",
-    });
+    // TEST URL: http://localhost:3000/api/v1/auth/logout
+    fetch(
+      "https://blog-app-client-production.up.railway.app/api/v1/auth/logout",
+      {
+        credentials: "include",
+        method: "POST",
+      }
+    );
     setUserInfo(null);
   }
 
