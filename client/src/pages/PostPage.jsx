@@ -4,11 +4,15 @@ import { format } from "date-fns";
 import { UserContext } from "../UserContext";
 
 const PostPage = () => {
+  // TODO: update url for custom domain
   const [postInfo, setPostInfo] = useState(null);
   const { userInfo } = useContext(UserContext);
   const { id } = useParams();
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/auth/post/${id}`).then((response) => {
+    // TEST URL: http://localhost:3000/api/v1/auth/post/${id}
+    fetch(
+      `https://blog-app-production-82fa.up.railway.app/api/v1/auth/post/${id}`
+    ).then((response) => {
       response.json().then((postInfo) => {
         setPostInfo(postInfo);
       });
@@ -60,7 +64,11 @@ const PostPage = () => {
         </div>
       )}
       <div className="image">
-        <img src={`http://localhost:3000/${postInfo.cover}`} alt="" />
+        {/* <img src={`http://localhost:3000/${postInfo.cover}`} alt="" /> */}
+        <img
+          src={`https://blog-app-production-82fa.up.railway.app/${postInfo.cover}`}
+          alt=""
+        />
       </div>
       <div
         className="content"
