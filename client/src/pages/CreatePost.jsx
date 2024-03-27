@@ -16,11 +16,15 @@ const CreatePost = () => {
     data.set("content", content);
     data.set("file", files[0]);
     e.preventDefault();
-    const response = await fetch("http://localhost:3000/api/v1/auth/post", {
-      method: "POST",
-      body: data,
-      credentials: "include",
-    });
+    // TEST URL: http://localhost:3000/api/v1/auth/post
+    const response = await fetch(
+      "https://blog-app-production-82fa.up.railway.app/api/v1/auth/post",
+      {
+        method: "POST",
+        body: data,
+        credentials: "include",
+      }
+    );
     if (response.ok) {
       setRedirect(true);
     }

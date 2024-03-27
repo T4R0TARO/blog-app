@@ -11,7 +11,10 @@ const EditPost = () => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/v1/auth/post/" + id).then((response) => {
+    // TEST URL: http://localhost:3000/api/v1/auth/post/
+    fetch(
+      "https://blog-app-production-82fa.up.railway.app/api/v1/auth/post/" + id
+    ).then((response) => {
       response.json().then((postInfo) => {
         setTitle(postInfo.title);
         setContent(postInfo.content);
