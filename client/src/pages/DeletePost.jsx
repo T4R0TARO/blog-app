@@ -9,7 +9,8 @@ const DeletePost = () => {
     ev.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3000/api/v1/auth/delete/${id}`,
+        // TEST URL: http://localhost:3000/api/v1/auth/delete/
+        `https://blog-app-production-82fa.up.railway.app/api/v1/auth/delete/${id}`,
         {
           method: "DELETE",
           headers: {
