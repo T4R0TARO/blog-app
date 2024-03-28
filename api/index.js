@@ -13,22 +13,19 @@ const app = express();
 
 // ! DOES NOT WORK
 // app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-// TESTING
+//? TESTING
 // app.use(cors({ origin: "http://127.0.0.1:5173", credentials: true }));
+// app.use(cors());
+
+// * DEPLOY
 app.use(
   cors({
+    origin: "https://blog-app-production-82fa.up.railway.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
     credentials: true,
   })
 );
-// DEPLOY
-// app.use(
-//   cors({
-//     origin: "https://blog-app-production-82fa.up.railway.app",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     allowedHeaders: ["Content-Type"],
-//     credentials: true,
-//   })
-// );
 
 app.use(express.json());
 app.use(cookieParser());
