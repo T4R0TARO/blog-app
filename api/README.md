@@ -150,3 +150,55 @@ const uploadMiddleware = multer({ dest: "uploads/" });
  */
 router.put("/post", uploadMiddleware.single("file"), editPost);
 ```
+
+### Hosting Setup
+
+- When deploying site to Hosting server, be sure to use the proper origin url for the custom domain
+- NOTE: You will get CORS errors if you are using the incorrect url for either frontend or backend
+
+Frontend URL when setting up the origin for Backend
+
+```js
+// ! DOES NOT WORK
+// app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+//? TESTING
+// app.use(cors({ origin: "http://127.0.0.1:5173", credentials: true }));
+// app.use(cors());
+
+// * DEPLOY
+app.use(
+  cors({
+    // origin: "https://blog-app-production-82fa.up.railway.app", // ! BACKEND URL
+    origin: "https://blog-app-client-production.up.railway.app", // Frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+    credentials: true,
+  })
+);
+```
+
+Backend URL when fetching data from the Frontend
+
+```js
+const Home = () => {
+  const [posts, setPosts] = useState([]);
+  // API: blog-app-production-82fa.up.railway.app
+  // TEST URL: http://localhost:3000/api/v1/auth/post
+  useEffect(() => {
+    fetch(
+      "https://blog-app-production-82fa.up.railway.app/api/v1/auth/post"
+    ).then((response) => {
+      response.json().then((posts) => {
+        setPosts(posts);
+      });
+    });
+  }, []);
+
+  return (
+    <>
+      {posts.length > 0 &&
+        posts.map((post) => <Post key={post._id} {...post} />)}
+    </>
+  );
+};
+```
